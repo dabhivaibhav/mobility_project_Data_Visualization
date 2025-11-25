@@ -1,6 +1,6 @@
 import pandas as pd
 
-path = "./data_raw/means_transport.csv"
+path = "./data_processed/tract_mobility_master.csv"
 
 # skip metadata row
 df = pd.read_csv(path, skiprows=1)
