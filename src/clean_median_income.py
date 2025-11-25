@@ -1,44 +1,40 @@
 import pandas as pd
 
-# Load raw CSV file
-path = "./data_raw/median_income.csv"
+INPUT_PATH = "./data_raw/median_income.csv"
+OUTPUT_PATH = "./data_processed/median_income_clean.csv"
 
-df = pd.read_csv(path, skiprows=1)
-
+df = pd.read_csv(INPUT_PATH)
 print("Raw shape:", df.shape)
 
-# Rename columns to simpler names for easier handling
-df = df.rename(
-    columns={
-        "Geography": "geoid_raw",
-        "Geographic Area Name": "tract_name",
-        "Estimate!!Median household income in the past 12 months (in 2023 inflation-adjusted dollars)": "median_income",
-        "Margin of Error!!Median household income in the past 12 months (in 2023 inflation-adjusted dollars)": "median_income_moe",
-    }
-)
+# Drop unnamed metadata columns
+df = df.loc[:, ~df.columns.str.contains("^Unnamed")]
+print("After dropping Unnamed:", df.shape)
 
 # Keep only census tracts
-# In this file, tract rows start with '1400000US'
-df = df[df["geoid_raw"].str.startswith("1400000US")].copy()
-
+df = df[df["GEO_ID"].str.startswith("1400000US")].copy()
 print("After keeping only tracts:", df.shape)
 
-# Extract clean GEOID
-# Remove the '1400000US' prefix so we just have the 11-digit tract ID
-df["geoid"] = df["geoid_raw"].str.replace("1400000US", "", regex=False)
+# Rename columns to friendlier names
+df.rename(
+    columns={
+        "GEO_ID": "geoid",
+        "NAME": "tract_name",
+        "B19013_001E": "median_income",
+    },
+    inplace=True,
+)
 
-# Convert income to numeric
+# 🔴 IMPORTANT: make geoid format match other tables (strip prefix)
+df["geoid"] = df["geoid"].str.replace("1400000US", "", regex=False)
+
+# Keep only needed columns
+df = df[["geoid", "tract_name", "median_income"]]
+
+# Ensure numeric income
 df["median_income"] = pd.to_numeric(df["median_income"], errors="coerce")
 
-# Keep only the columns we care about
-df_clean = df[["geoid", "tract_name", "median_income"]].copy()
+print("\n=== Preview of cleaned income data ===")
+print(df.head())
 
-print("\n=== Preview of cleaned data ===")
-print(df_clean.head())
-print("\nNumber of cleaned tracts:", len(df_clean))
-
-# Save cleaned file to data_processed folder
-output_path = "./data_processed/median_income_clean.csv"
-df_clean.to_csv(output_path, index=False)
-
-print("\nSaved cleaned file to:", output_path)
+df.to_csv(OUTPUT_PATH, index=False)
+print("\nSaved cleaned file to:", OUTPUT_PATH)

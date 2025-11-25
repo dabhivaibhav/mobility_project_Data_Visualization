@@ -19,9 +19,7 @@ df["rides"] = df["rides"].astype(int)
 df = df[df["date"].dt.year == 2023]
 print("After filtering 2023:", df.shape)
 
-
 # Rename Station Name column
-
 df.rename(columns={"stationname": "station_name"}, inplace=True)
 
 

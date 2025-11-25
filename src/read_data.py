@@ -2,10 +2,10 @@ import pandas as pd
 
 path = "./data_raw/means_transport.csv"
 
-# Step 1: skip metadata row
+# skip metadata row
 df = pd.read_csv(path, skiprows=1)
 
-# Step 2: drop useless "Unnamed" columns
+# drop useless "Unnamed" columns
 df = df.loc[:, ~df.columns.str.contains("Unnamed")]
 
 print("\n===== COLUMNS =====")
