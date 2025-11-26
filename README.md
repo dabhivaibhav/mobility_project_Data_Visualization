@@ -171,6 +171,8 @@ Reveal whether lower-income neighborhoods lack private vehicle access.
 
 This emphasizes variation *within* income groups.
 
+<img width="975" height="514" alt="image" src="https://github.com/user-attachments/assets/800cd161-6bc0-4724-a2b7-8579e4ce2667" />
+
 ---
 
 ### 🧠 Key Insight
@@ -207,6 +209,8 @@ Show how commute burden changes across income groups.
 Top — Income Histogram
 BottomL — Income vs Commute Scatter
 BottomR — Commute Time Density Histogram
+
+<img width="975" height="415" alt="image" src="https://github.com/user-attachments/assets/0fc8d56c-13bc-4c65-b455-5246cda2a326" />
 
 ### What It Shows
 - Long commutes cluster in **low-income tracts**
@@ -248,6 +252,8 @@ Built using **plotly.graph_objects** to enable:
 - Legend filtering
 - Hover tooltips
 - Frame-based filtering
+
+<img width="975" height="512" alt="image" src="https://github.com/user-attachments/assets/e22bd981-54eb-4555-9592-03dbfc7d1ae0" />
 
 ### Behavior
 
