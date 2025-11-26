@@ -61,6 +61,9 @@ Key columns:
 
 These variables capture **mobility, access, and inequality** across the region.
 
+<img width="975" height="309" alt="image" src="https://github.com/user-attachments/assets/ae6284c4-4635-402b-9369-d7a8cfe52cb4" />
+
+
 ---
 
 # 🛠️ System Architecture
