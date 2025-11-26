@@ -1,6 +1,6 @@
 import pandas as pd
 
-# === File path ===
+# File path
 file_path = "./data_raw/travel_time.csv"
 
 # Read raw file
@@ -15,14 +15,14 @@ print("After dropping Unnamed:", df.shape)
 df = df[df["GEO_ID"].str.startswith("1400000US")].copy()
 print("After keeping only tracts:", df.shape)
 
-# ---- Fix GEOID format to match other tables ----
+# Fix GEOID format to match other tables by removing leading "1400000US"
 # Example: 1400000US17031010100 -> 17031010100
 df["geoid"] = df["GEO_ID"].str.replace("1400000US", "", regex=False)
 
 # Rename NAME -> tract_name
 df.rename(columns={"NAME": "tract_name"}, inplace=True)
 
-# Convert mean travel time to numeric (this is the *total minutes* value)
+# Convert mean travel time to numeric (this is the total minutes value)
 df["B08303_001E"] = pd.to_numeric(df["B08303_001E"], errors="coerce")
 
 # Compute mean travel time in minutes

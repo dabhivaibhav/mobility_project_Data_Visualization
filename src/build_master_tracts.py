@@ -1,6 +1,6 @@
 import pandas as pd
 
-# === Load cleaned files ===
+# Load cleaned files
 income = pd.read_csv("./data_processed/median_income_clean.csv")
 transport = pd.read_csv("./data_processed/means_transport_clean.csv")
 vehicles = pd.read_csv("./data_processed/vehicles_available_clean.csv")
@@ -11,11 +11,11 @@ print("Transport rows:", len(transport))
 print("Vehicles rows:", len(vehicles))
 print("Travel rows:", len(travel))
 
-# === Convert all geoids to strings ===
+# Convert all geoids to strings
 for df in [income, transport, vehicles, travel]:
     df["geoid"] = df["geoid"].astype(str)
 
-# === Start master ===
+# Start master
 master = income.copy()
 
 # Don't duplicate tract_name during merges

@@ -75,8 +75,8 @@ for q in quartile_order:
 
 
 # Create a compound subplot layout:
-# Row 1  → income distribution only (histogram)
-# Row 2  → scatter plot + commute histogram side panel
+# Row 1  - income distribution only (histogram)
+# Row 2  - scatter plot + commute histogram side panel
 # This provides multiple perspectives using the same population.
 fig = make_subplots(
     rows=2,
@@ -198,8 +198,8 @@ fig.update_layout(
     height=700,
     legend_title="Income Group",
     legend=dict(
-        itemclick="toggleothers",  # click one → isolate group
-        itemdoubleclick="toggle",  # double click → traditional toggle
+        itemclick="toggleothers",  # click one - isolate group
+        itemdoubleclick="toggle",  # double click - traditional toggle
     ),
     bargap=0.05,
 )

@@ -24,7 +24,7 @@ df.rename(
     inplace=True,
 )
 
-# 🔴 IMPORTANT: make geoid format match other tables (strip prefix)
+# make geoid format match other tables by removing leading "1400000US"
 df["geoid"] = df["geoid"].str.replace("1400000US", "", regex=False)
 
 # Keep only needed columns
