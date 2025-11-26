@@ -67,7 +67,7 @@ These variables capture **mobility, access, and inequality** across the region.
 ---
 
 # 📁 Project Structure
-
+```
 MOBILITY PROJECT
 ├── data_processed/
 │   ├── cta_ridership_clean.csv
@@ -106,6 +106,7 @@ MOBILITY PROJECT
 │
 ├── .gitignore
 └── README.md
+```
 ---
 
 # 🛠️ System Architecture
