@@ -66,6 +66,48 @@ These variables capture **mobility, access, and inequality** across the region.
 
 ---
 
+# 📁 Project Structure
+
+MOBILITY PROJECT
+├── data_processed/
+│   ├── cta_ridership_clean.csv
+│   ├── means_transport_clean.csv
+│   ├── median_income_clean.csv
+│   ├── tract_mobility_master.csv
+│   ├── travel_time_clean.csv
+│   ├── vehicles_available_clean.csv
+│
+├── data_raw/
+│   ├── community_boundaries.csv
+│   ├── cta_entries.csv
+│   ├── means_transport.csv
+│   ├── median_income.csv
+│   ├── travel_time.csv
+│   ├── vehicles_available.csv
+│
+├── figs/
+│   ├── commute_inequality.html
+│   ├── commute_threshold_slider.html
+│   ├── income_vs_no_vehicle_violin.html
+│
+├── src/
+│   ├── build_master_tracts.py
+│   ├── check_columns.py
+│   ├── clean_cta_ridership.py
+│   ├── clean_means_transport.py
+│   ├── clean_median_income.py
+│   ├── clean_travel_time.py
+│   ├── clean_vehicles_available.py
+│   ├── commute_inequality_dashboard.py
+│   ├── commute_threshold_dashboard.py
+│   ├── explore_master_dataset.py
+│   ├── income_vs_car_dashboard.py
+│   ├── read_data.py
+│
+├── .gitignore
+└── README.md
+---
+
 # 🛠️ System Architecture
 
 The project follows a structured data pipeline:
@@ -332,14 +374,3 @@ https://data.census.gov
 
 ---
 
-# 📁 Project Structure
-
-project/
-│── data_raw/
-│── data_processed/
-│── scripts/
-│ ├── income_vs_car_dashboard.py
-│ ├── commute_inequality_dashboard.py
-│ ├── commute_threshold_dashboard.py
-│── figs/
-│── README.md
