@@ -67,3 +67,270 @@ These variables capture **mobility, access, and inequality** across the region.
 
 The project follows a structured data pipeline:
 
+Raw Mobility Data ──► Data Cleaning
+──► Feature Engineering
+──► Master Dataset
+──► Interactive Dashboards (3 Visualizations)
+
+
+**Key design principle:**  
+All dashboards reference the **same master dataset**, ensuring consistent comparisons.
+
+---
+
+# 🧽 Data Preparation
+
+To ensure reliable visual insights, several preprocessing steps were implemented:
+
+### ✔ Missing Value Removal
+Rows lacking commute or income data were dropped.  
+Incomplete tracts distort distribution shapes and bias quartile boundaries.
+
+### ✔ Standardization
+- Percent columns were normalized into decimal numeric form.
+- Income was stored as raw USD.
+- Commute times were rounded to whole minutes (powers animation frames).
+
+### ✔ Income Quartiles
+Income groups were generated dynamically:
+
+- Q1 — Lowest 25%
+- Q2 — Lower-middle
+- Q3 — Upper-middle
+- Q4 — Highest 25%
+
+This segmentation ensures **fair comparison within comparable economic bands**.
+
+### ✔ Transit Reliance Metric
+A custom tier was derived:
+> **Top 25% of transit usage = “High Transit”**
+
+This reveals neighborhoods where transit is necessity rather than choice.
+
+---
+
+# 🛠️ Tools & Libraries
+
+- **Python**
+- **Pandas** — data cleaning & ETL
+- **NumPy** — correlations & numeric ops
+- **Plotly Express** — early prototypes
+- **Plotly Graph Objects** — custom UI, animations, frames, legends
+
+Plotly was chosen because visualization happens **in-browser**, not just in code.  
+Users can interact naturally without running Python notebooks.
+
+---
+
+# 🎨 Visualization Strategy
+
+Each dashboard answers a different analytical question.
+
+### 🔹 Distribution Visuals
+Show inequality *within* groups  
+(violins, density histograms)
+
+### 🔹 Relationship Visuals
+Show how variables move together  
+(scatter: income vs commute)
+
+### 🔹 Segmentation by Income
+Every visualization uses **income quartiles** for fair comparison.
+
+### 🔹 Interactivity
+- **Legend: isolate one group**
+- **Hover: view tract-level details**
+- **Slider: explore commute time frames**
+
+### 🔹 Consistent Color System
+| Quartile | Color |
+|---------|------|
+| Q1 | Purple |
+| Q2 | Blue |
+| Q3 | Green |
+| Q4 | Yellow |
+
+Visual continuity reduces cognitive load.
+
+---
+
+---
+
+# 🟣 Dashboard 1 — Income vs Vehicle Ownership
+
+### **Purpose**
+Reveal whether lower-income neighborhoods lack private vehicle access.
+
+### 🔧 Visualization Design
+- **Violin plot** — displays full distribution, not just averages
+- **Each dot = one census tract**
+- **Color-coded quartiles (Q1–Q4)**
+
+This emphasizes variation *within* income groups.
+
+---
+
+### 🧠 Key Insight
+
+> Q1 neighborhoods can reach **20–50% car-less households**.  
+> Q4 neighborhoods rarely exceed **8%**.
+
+Private vehicle access increases dramatically with income.
+
+---
+
+### 💡 Why a Violin Plot?
+
+Averages hide inequality.  
+Violin plots expose:
+
+- clusters
+- long tails
+- distribution shape
+- outliers
+
+This turns vehicle ownership into a **story of lived inequality**, not just numbers.
+
+---
+
+---
+
+# 🟢 Dashboard 2 — Commute Inequality (3-View)
+
+### **Purpose**
+Show how commute burden changes across income groups.
+
+### Visualization Layout
+Top — Income Histogram
+BottomL — Income vs Commute Scatter
+BottomR — Commute Time Density Histogram
+
+### What It Shows
+- Long commutes cluster in **low-income tracts**
+- Wealthy neighborhoods enjoy **shorter commute windows**
+
+The views reinforce each other:
+- Histogram shows distribution
+- Scatter shows correlation
+- Density histogram shows inequality *within* bins
+
+---
+
+### 🔍 Findings
+
+- Q1 neighborhoods dominate **35–45+ minute** commutes
+- Q4 tracts concentrate **18–28 minutes**
+- Correlation becomes strongest at extremes
+- At the Q4 level, commute distribution is narrow and compressed
+
+This demonstrates mobility inequality as **systemic**, not behavioral.
+
+---
+
+---
+
+# 🟡 Dashboard 3 — Transit Reliance vs Income (Animated)
+
+### **Purpose**
+Introduce commute time as a dynamic layer.
+
+Instead of static plots:
+👉 users “walk through” commute minutes using a slider
+
+### Implementation
+Built using **plotly.graph_objects** to enable:
+
+- Custom animation frames
+- Stable axis bounds across time
+- Legend filtering
+- Hover tooltips
+- Frame-based filtering
+
+### Behavior
+
+- **Default view = All neighborhoods**
+- **Slider = only tracts with mean commute == M**
+- **Legend = isolate an income group**
+
+---
+
+### 🧩 Emerging Pattern
+
+> Short commutes → **high-income tracts dominate (Q3–Q4)**  
+> Long commutes → **low-income tracts dominate (Q1–Q2)**
+
+Transit use is **not a preference**.  
+It is a **constraint tied to commute burden**.
+
+---
+
+# 💡 Technical Contribution
+
+I selected `plotly.graph_objects` over Plotly Express to build the final dashboard because:
+
+- It allows manual construction of animation frames
+- Axes remain fixed across time (no jittering scale)
+- Legend interaction can isolate groups
+- Hover tooltips show tract name + commute minutes
+- Sliders and play/pause controls can be fully customized
+
+Express → great for prototypes  
+Graph Objects → **required for professional interactive dashboards**
+
+---
+
+# ⭐ Key Findings
+
+✔ **Income strongly predicts vehicle access**  
+Lower quartiles show up to 50% car-less households.
+
+✔ **Commute Time Burden is Unequal**  
+Poor neighborhoods spend more time traveling — cost paid in hours.
+
+✔ **Transit Reliance Concentrates in Q1–Q2**  
+Reliance increases as income decreases.
+
+✔ **Mobility is structural**  
+Not based on preference — based on resources.
+
+---
+
+# ⚠️ Limitations
+
+- Dataset is cross-sectional (not time-series)
+- Tract averages ≠ individual lives
+- Commute duration ≠ commute reliability
+- No causal inference models used
+
+---
+
+# 🧭 Future Improvements
+
+- Add time-series mobility trends
+- Include CTA or Metra infrastructure layers
+- Combine jobs-housing accessibility metrics
+- Expand to other metro regions
+
+---
+
+# 📚 References (APA)
+
+American Community Survey. (2023). *Transportation Characteristics of Workers by Means of Transportation.*  
+U.S. Census Bureau. https://www.census.gov/programs-surveys/acs/
+
+U.S. Census Bureau. (2021). *American Community Survey 5-Year Estimates (Table DP03: Selected Economic Characteristics).*  
+https://data.census.gov
+
+---
+
+# 📁 Project Structure
+
+project/
+│── data_raw/
+│── data_processed/
+│── scripts/
+│ ├── income_vs_car_dashboard.py
+│ ├── commute_inequality_dashboard.py
+│ ├── commute_threshold_dashboard.py
+│── figs/
+│── README.md
